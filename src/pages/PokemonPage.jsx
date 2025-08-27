@@ -1,51 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { pokeClient } from '../api/api';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import {fetchpokemon} from '../reducers/singleSlice'
 
-function PokemonPage() {
+const PokemonPage = () => {
   
-  const { id } = useParams(); 
+  const {id} = useParams()
+  const dispatch = useDispatch()
 
-  
-  const [pokemon, setPokemon] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const list = useSelector((state) =>state.single.list)
+  const status = useSelector((state) =>state.single.status)
 
-  const fetchPokemonDetails = async () => {
-      try {
-        setLoading(true);
-        const response = await pokeClient.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        setPokemon(response.data);
-      } catch (error) {
-        console.error("Failed to fetch Pokémon details:", error);
-        setPokemon(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-  
-  useEffect(() => {
-    
-
-    fetchPokemonDetails();
-  }, [id]);
-
-  
-  if (loading) {
-    return <div>Loading Pokémon...</div>;
-  }
-
-  if (!pokemon) {
-    return <div>Pokémon not found!</div>;
-  }
-
+  useEffect(()=>{
+    dispatch(fetchpokemon(id))
+  },[])
   return (
-    <div>
-      
-      <h1>Pokemon name is: {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
-      <h2>Pokemon id is: {pokemon.id}</h2>
-    </div>
-  );
+    <div>PokemonPage</div>
+  )
 }
 
-export default PokemonPage;
+export default PokemonPage
