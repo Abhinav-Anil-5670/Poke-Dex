@@ -1,6 +1,6 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { pokeClient } from "../../api/api";
+import { pokeClient } from "../api/api";
 
 const POKEMON_PER_PAGE = 20
 

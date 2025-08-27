@@ -3,12 +3,14 @@ import { Route, Routes } from 'react-router-dom'
 import Home from '../pages/Home'
 import PokemonList from '../pages/PokemonList'
 import Myteam from '../pages/Myteam'
+import PokemonPage from '../pages/PokemonPage'
 
 const MainRoutes = () => {
   return (
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/pokemon' element={<PokemonList/>}/>
+      <Route path='/pokemon/:id' element={<PokemonPage/>}/>
       <Route path='/myteam' element={<Myteam/>}/>
     </Routes>
   )
