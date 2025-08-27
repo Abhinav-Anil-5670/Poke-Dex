@@ -1,38 +1,78 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import {fetchpokemon,fetchpokemonspecies,fetchpokemonevolution} from '../reducers/singleSlice'
+import React, { useEffect ,useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { fetchPokemonPageData } from '../reducers/singleSlice';
+import { parseEvolutionChain } from '../utils/pokemonHelpers'
+import EvolutionChain from './EvolutionChain';
+import Card from '../components/Card';
 
 const PokemonPage = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const status = useSelector((state) => state.single.status);
   
-  const {id} = useParams()
-  const dispatch = useDispatch()
+  const pageData = useSelector((state) => state.single.data);
 
-  const list = useSelector((state) =>state.single.list)
-  const status = useSelector((state) =>state.single.status)
-  const morelist = useSelector((state) =>state.single.morelist)
-  const evolist = useSelector((state) =>state.single.evolist)
-  
+  const [evolutionChain, setEvolutionChain] = useState([]);
 
-  
-  useEffect(()=>{
-    dispatch(fetchpokemon(id))
-    dispatch(fetchpokemonspecies(id))
-    dispatch(fetchpokemonevolution(id))
-  },[])
- 
+  useEffect(() => {
+    
+    dispatch(fetchPokemonPageData(id));
+  }, [id, dispatch]);
 
-  const isLoading = status !== 'succeeded' || list.length === 0 || morelist.length === 0 || evolist.length === 0;
+  useEffect(() => {
+    if (pageData) {
+      const parsedChain = parseEvolutionChain(pageData.evolution.chain);
+      setEvolutionChain(parsedChain);
+    }
+  }, [pageData]);
 
-
-
+  if (status === 'loading' || !pageData) {
+    return <p className="loading-message">Loading Pokémon...</p>;
+  }
   
   
+  const { details, species, evolution } = pageData;
 
+  return (
+    <div class="max-w-7xl mx-auto mt-8">
 
-  return !isLoading ? (
-    <div>{list.name}{morelist.base_happiness}</div>
-  ) : <h1>Loading</h1>
-}
+       
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
 
-export default PokemonPage
+            
+            <div class="lg:col-span-1 placeholder-box min-h-[300px]">
+                
+                <Card pokemon={details}/>
+            </div>
+
+            
+            <div class="lg:col-span-2 placeholder-box min-h-[300px]">
+                <h1 class="text-2xl font-bold">2. Pokémon Graph</h1>
+                <p>(Your stats graph component goes here)</p>
+            </div>
+
+        </div>
+
+        
+        <div class="placeholder-box mb-6 min-h-[200px]">
+            <h1 class="text-2xl font-bold">3. Physical & Lore Section</h1>
+            <p>(Height, Weight, Abilities, Pokédex Entry)</p>
+        </div>
+
+        
+        <div class="placeholder-box min-h-[200px]">
+            <h1 class="text-2xl font-bold">4. Evolution & Forms</h1>
+            {<EvolutionChain chain={evolutionChain} /> }
+        </div>
+        
+
+    </div>
+      
+      
+    
+  );
+};
+
+export default PokemonPage;
