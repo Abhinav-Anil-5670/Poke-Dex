@@ -4,12 +4,20 @@ import { pokeClient } from "../api/api";
 
 const initialState ={
     status : "idle",
-    list : []
+    list : [],
+    morelist : []
 }
 
 export const fetchpokemon = createAsyncThunk('pokemon/fetchpokemon',
     async (id) =>{
         const {data} = await pokeClient.get(`/pokemon/${id}`)
+        return data
+    }
+)
+
+export const fetchpokemonspecies = createAsyncThunk('pokemon/fetchpokemonspecies',
+    async (id) =>{
+        const {data} = await pokeClient.get(`/pokemon-species/${id}`)
         return data
     }
 )
@@ -31,6 +39,21 @@ const singleSlice = createSlice({
         })
 
         .addCase(fetchpokemon.rejected,(state)=>{
+            state.status = "failed"
+        })
+
+
+        .addCase(fetchpokemonspecies.pending,(state)=>{
+            state.status = "loading"
+
+        })
+
+        .addCase(fetchpokemonspecies.fulfilled,(state,aciton)=>{
+            state.status = "succeeded"
+            state.morelist = aciton.payload
+        })
+
+        .addCase(fetchpokemonspecies.rejected,(state)=>{
             state.status = "failed"
         })
     }

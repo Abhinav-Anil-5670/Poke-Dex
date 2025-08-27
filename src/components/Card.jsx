@@ -67,7 +67,9 @@ const Card = ({pokemon}) => {
             <p className="text-2xl font-bold">{pokemon.stats.find(stat => stat.stat.name === "speed")?.base_stat}</p>
             <p className="text-gray-500 text-sm">Speed</p>
           </div>
+          
         </div>
+        
       </div>
     </div>
   ) : <h1>Loading....</h1>
