@@ -5,6 +5,7 @@ import { fetchPokemonPageData } from '../reducers/singleSlice';
 import { parseEvolutionChain } from '../utils/pokemonHelpers'
 import EvolutionChain from './EvolutionChain';
 import Card from '../components/Card';
+import Graph from './Graph';
 
 const PokemonPage = () => {
   const { id } = useParams();
@@ -49,22 +50,27 @@ const PokemonPage = () => {
 
             
             <div class="lg:col-span-2 placeholder-box min-h-[300px]">
-                <h1 class="text-2xl font-bold">2. Pokémon Graph</h1>
-                <p>(Your stats graph component goes here)</p>
+                
+               <Graph pokemon={details}/>
             </div>
 
         </div>
 
         
         <div class="placeholder-box mb-6 min-h-[200px]">
-            <h1 class="text-2xl font-bold">3. Physical & Lore Section</h1>
-            <p>(Height, Weight, Abilities, Pokédex Entry)</p>
+            <div className='flex justify-center items-center'>
+              <h1 class="text-2xl font-bold">3. Physical & Lore Section</h1>
+              <p>(Height, Weight, Abilities, Pokédex Entry)</p>
+            </div>
+            
         </div>
 
         
         <div class="placeholder-box min-h-[200px]">
-            <h1 class="text-2xl font-bold">4. Evolution & Forms</h1>
-            {<EvolutionChain chain={evolutionChain} /> }
+          <div className='flex justify-center items-center'>
+            <h1 class="text-4xl font-bold">Evolution & Forms</h1>
+          </div>
+            <EvolutionChain chain={evolutionChain} pokedata={details} />
         </div>
         
 
