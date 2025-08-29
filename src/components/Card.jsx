@@ -34,7 +34,7 @@ const Card = ({pokemon}) => {
         </div>
         <img
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-          alt="Blastoise"
+          alt="NO IMAGE"
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4 h-48 w-auto"
           onError={(e) => {
             e.target.onerror = null;

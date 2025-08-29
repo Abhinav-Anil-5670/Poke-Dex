@@ -6,6 +6,7 @@ import { parseEvolutionChain } from '../utils/pokemonHelpers'
 import EvolutionChain from './EvolutionChain';
 import Card from '../components/Card';
 import Graph from './Graph';
+import Attributes from './Attributes';
 
 const PokemonPage = () => {
   const { id } = useParams();
@@ -37,19 +38,19 @@ const PokemonPage = () => {
   const { details, species, evolution } = pageData;
 
   return (
-    <div class="max-w-7xl mx-auto mt-8">
+    <div className="max-w-7xl mx-auto mt-8">
 
        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
 
             
-            <div class="lg:col-span-1 placeholder-box min-h-[300px]">
+            <div className="lg:col-span-1 placeholder-box min-h-[300px]">
                 
                 <Card pokemon={details}/>
             </div>
 
             
-            <div class="lg:col-span-2 placeholder-box min-h-[300px]">
+            <div className="lg:col-span-2 placeholder-box min-h-[300px]">
                 
                <Graph pokemon={details}/>
             </div>
@@ -57,18 +58,18 @@ const PokemonPage = () => {
         </div>
 
         
-        <div class="placeholder-box mb-6 min-h-[200px]">
+        <div className="placeholder-box mb-6 min-h-[200px]">
             <div className='flex justify-center items-center'>
-              <h1 class="text-2xl font-bold">3. Physical & Lore Section</h1>
-              <p>(Height, Weight, Abilities, Pokédex Entry)</p>
+              
+              <Attributes pokemon={details} species={species}/>
             </div>
             
         </div>
 
         
-        <div class="placeholder-box min-h-[200px]">
+        <div className="placeholder-box min-h-[200px]">
           <div className='flex justify-center items-center'>
-            <h1 class="text-4xl font-bold">Evolution & Forms</h1>
+            <h1 className="text-4xl font-bold">Evolution & Forms</h1>
           </div>
             <EvolutionChain chain={evolutionChain} pokedata={details} />
         </div>
