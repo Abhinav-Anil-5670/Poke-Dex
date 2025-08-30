@@ -56,7 +56,7 @@ Follow these steps to run the project locally:
 
 Clone the repository:
 ```bash
-git clone https://github.com/Abhinav-Anil-5670/pokedex-app.git
+git clone https://github.com/Abhinav-Anil-5670/poke-dex
 ```
 Install dependencies:
 ```bash
