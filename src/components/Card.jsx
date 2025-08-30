@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { toggleFavorite } from "../reducers/favouriteSlice";
+
 const typeColors = {
   normal: 'bg-gray-400',
   fire: 'bg-red-500',
@@ -21,6 +24,7 @@ const typeColors = {
 
 
 const Card = ({pokemon}) => {
+  const dispatch = useDispatch()
   
   return pokemon ?  (
     <div className="bg-white rounded-3xl shadow-lg overflow-hidden w-80 font-sans">
@@ -44,7 +48,7 @@ const Card = ({pokemon}) => {
       </div>
 
       <div className="pt-10 pb-6 px-6 text-center">
-        <h2 className="text-3xl font-bold mb-2">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
+        <h2 className="text-3xl font-bold mb-2">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} <i onClick={()=>dispatch(toggleFavorite(pokemon))} className="ri-add-circle-line "></i></h2>
         <div className='flex items-center justify-center gap-2'>
           {pokemon.types.map((type)=>(
             <span  className={`inline-block ${typeColors[type.type.name]} text-white text-sm font-semibold px-4 py-1 rounded-full mb-6`}>
