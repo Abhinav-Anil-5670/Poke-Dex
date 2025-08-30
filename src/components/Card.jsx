@@ -72,7 +72,7 @@ const Card = ({pokemon}) => {
         
       </div>
     </div>
-  ) : <h1>Loading....</h1>
+  ) : <h1>Please Enter Name of the Pokemon</h1>
 };
 
 
