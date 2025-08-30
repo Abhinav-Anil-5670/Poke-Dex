@@ -61,7 +61,7 @@ const Card = ({pokemon}) => {
         <h2 className="text-3xl font-bold mb-2">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} <i onClick={handleFavoriteClick} className={`cursor-pointer ml-2 ${isFavorite ? 'ri-subtract-line text-red-500' : 'ri-add-circle-line text-green-500'}`}></i></h2>
         <div className='flex items-center justify-center gap-2'>
           {pokemon.types.map((type)=>(
-            <span  className={`inline-block ${typeColors[type.type.name]} text-white text-sm font-semibold px-4 py-1 rounded-full mb-6`}>
+            <span key={type.type.name}  className={`inline-block ${typeColors[type.type.name]} text-white text-sm font-semibold px-4 py-1 rounded-full mb-6`}>
           {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
         </span>
           ))}

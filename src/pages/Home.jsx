@@ -4,31 +4,52 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const Loader = () => (
+  <div className="flex flex-col items-center justify-center mt-10">
+    <svg className="animate-spin h-12 w-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    <p className="mt-4 text-lg font-semibold text-gray-600">Searching...</p>
+  </div>
+);
 
 
 const Home = () => {
+  document.title = "Pokédex | Home";
   const [inputValue, setInputValue] = useState('');
   const [pokemondata,setpokemondata] = useState()
+  const [isLoading, setIsLoading] = useState(false);
   
 
   
   const pokemon = async (pokemon_name)=>{
-    const{data} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`)
-    setpokemondata(data)
-    console.log(data)
+    setIsLoading(true)
+    try{
+      const{data} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`)
+      setpokemondata(data)
+      
+    }
+    catch(err){
+      alert("No Data Found")
+    }
+    finally{
+      setIsLoading(false)
+    }
   }
   const handleChange = (e) => {
-      setInputValue(e.target.value);
+      setInputValue(e.target.value.trim());
       
       
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted with:', inputValue);
-    pokemon(inputValue)
+    setInputValue('');
+    
+pokemon(inputValue)
     
   };
-  return (
+  return  (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100  text-center p-4 font-sans">
       
      
@@ -71,7 +92,7 @@ const Home = () => {
         </div>
 
       </div>
-     { pokemondata ? <Link to={`/pokemon/${pokemondata.id}`} className='mt-10'>
+     { isLoading ? <Loader/> :  pokemondata ? <Link to={`/pokemon/${pokemondata.id}`} className='mt-10'>
        <Card pokemon={pokemondata}/>
      </Link> : <h1 className='mt-10 font-bold'>Search Pokemon with either - Pokemon Name or Id</h1>}
     </div>

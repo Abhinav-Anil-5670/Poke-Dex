@@ -60,10 +60,6 @@ function CustomTooltip({ active, payload, label, pokemon }) {
   }
   return null;
 }
-
-
-
-
 const Graph = ({pokemon}) => {
 
     const [data, setdata] = useState([])
@@ -75,8 +71,7 @@ const Graph = ({pokemon}) => {
             {stat : "Special_Attack", value : `${pokemon.stats.find(stat => stat.stat.name === "special-attack")?.base_stat}`},
             {stat : "Speed", value : `${pokemon.stats.find(stat => stat.stat.name === "speed")?.base_stat}`}]
             setdata(stats)
-        console.log(pokemon)
-        console.log(stats)
+          
     },[pokemon])
 
 

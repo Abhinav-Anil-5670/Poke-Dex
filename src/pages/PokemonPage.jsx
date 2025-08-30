@@ -18,6 +18,8 @@ const PokemonPage = () => {
 
   const [evolutionChain, setEvolutionChain] = useState([]);
 
+
+
   useEffect(() => {
     
     dispatch(fetchPokemonPageData(id));
@@ -36,6 +38,10 @@ const PokemonPage = () => {
   
   
   const { details, species, evolution } = pageData;
+
+    if(details){
+      document.title = `Pokédex | ${details.name.charAt(0).toUpperCase() + details.name.slice(1)}`;
+    }
 
   return (
     <div className="max-w-7xl mx-auto mt-8">

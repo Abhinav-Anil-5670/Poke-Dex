@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 
 function PokemonList() {
+  document.title = "Pokédex | Pokemon List";
   const dispatch = useDispatch();
 
   const pokemonList = useSelector((state) => state.pokemon.list);
