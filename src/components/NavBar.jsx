@@ -34,7 +34,7 @@ function Navbar() {
           </div>
 
           
-          <div className="hidden md:flex md:items-center md:space-x-8">
+          <div className=" md:flex md:items-center md:space-x-8">
             
             <Link to="/pokemon" className="text-gray-600 hover:text-red-600 font-semibold px-3 py-2 rounded-md text-sm transition-colors">
               Pokemon

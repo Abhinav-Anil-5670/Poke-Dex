@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { toggleFavorite } from "../reducers/favouriteSlice";
 
 const typeColors = {
@@ -25,6 +25,16 @@ const typeColors = {
 
 const Card = ({pokemon}) => {
   const dispatch = useDispatch()
+
+  const favoritesList = useSelector((state) => state.favourite.list);
+
+  const isFavorite = favoritesList.some(p => p.id === pokemon.id);
+
+  const handleFavoriteClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    dispatch(toggleFavorite(pokemon));
+  };
   
   return pokemon ?  (
     <div className="bg-white rounded-3xl shadow-lg overflow-hidden w-80 font-sans">
@@ -48,7 +58,7 @@ const Card = ({pokemon}) => {
       </div>
 
       <div className="pt-10 pb-6 px-6 text-center">
-        <h2 className="text-3xl font-bold mb-2">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} <i onClick={(event)=>{event.preventDefault(); event.stopPropagation(); dispatch(toggleFavorite(pokemon))}} className="ri-add-circle-line "></i></h2>
+        <h2 className="text-3xl font-bold mb-2">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} <i onClick={handleFavoriteClick} className={`cursor-pointer ml-2 ${isFavorite ? 'ri-subtract-line text-red-500' : 'ri-add-circle-line text-green-500'}`}></i></h2>
         <div className='flex items-center justify-center gap-2'>
           {pokemon.types.map((type)=>(
             <span  className={`inline-block ${typeColors[type.type.name]} text-white text-sm font-semibold px-4 py-1 rounded-full mb-6`}>
