@@ -1,32 +1,9 @@
-import React from 'react';
+
 import Card from '../components/Card';
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-
-
-const PokeBallIcon = () => (
-
-  
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="black"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-6 w-6"
-  >
-    <line x1="12" y1="2" x2="12" y2="22" />
-    <path d="M12 2a10 10 0 0 0-10 10h20a10 10 0 0 0-10-10z" fill="#EF4444" stroke="black" />
-    <path d="M12 22a10 10 0 0 0 10-10H2a10 10 0 0 0 10 10z" fill="#F9FAFB" stroke="black" />
-    <circle cx="12" cy="12" r="4" fill="#2D3748" stroke="black" />
-    <circle cx="12" cy="12" r="2" fill="white" stroke="black" />
-</svg>
-);
 
 
 const Home = () => {
@@ -59,10 +36,10 @@ const Home = () => {
         
         
         <div className="relative w-32 h-32 mx-auto mb-8 animate-bounce">
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-red-500 rounded-t-full border-4  border-gray-200"></div>
-            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white rounded-b-full border-4  border-gray-200"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full border-4  border-gray-200"></div>
-            <div className="absolute top-1/2 left-0 w-full h-2  bg-gray-200 -translate-y-1/2"></div>
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-red-500 rounded-t-full border-4  border-black-200"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white rounded-b-full border-4  border-black-200"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full border-4  border-black-200"></div>
+            <div className="absolute top-1/2 left-0 w-full h-2  bg-black-200 -translate-y-1/2"></div>
         </div>
 
         
@@ -94,9 +71,9 @@ const Home = () => {
         </div>
 
       </div>
-     <div className='mt-10'>
+     { pokemondata ? <Link to={`/pokemon/${pokemondata.id}`} className='mt-10'>
        <Card pokemon={pokemondata}/>
-     </div>
+     </Link> : <h1 className='mt-10 font-bold'>Search Pokemon with either - Pokemon Name or Id</h1>}
     </div>
   )
 }
